@@ -33,6 +33,8 @@ This approach ensures more thoughtful, contextually aware, and reliable response
   ```plaintext
   DEEPSEEK_API_KEY=your_deepseek_api_key_here
   OPENROUTER_API_KEY=your_openrouter_api_key_here
+  optional
+  ANTHROPIC_API_KEY=your_anthropic_api_key_here
   ```
 
 ## 🚀 Installation
@@ -40,8 +42,8 @@ Standalone installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/rat.git
-   cd rat
+   git clone https://github.com/Doriandarko/RAT-retrieval-augmented-thinking.git
+   cd RAT-retrieval-augmented-thinking
    ```
 
 
@@ -58,6 +60,8 @@ This will install RAT as a command-line tool, allowing you to run it from anywhe
    ```plaintext
    DEEPSEEK_API_KEY=your_deepseek_api_key_here
    OPENROUTER_API_KEY=your_openrouter_api_key_here
+   optional
+   ANTHROPIC_API_KEY=your_anthropic_api_key_here 
    ```
 
 2. Run RAT from anywhere:
@@ -71,19 +75,7 @@ This will install RAT as a command-line tool, allowing you to run it from anywhe
    - Type "reasoning" to show/hide the thinking process
    - Type "quit" to exit
 
-## ⚡ Quick Start
 
-```bash
-# Install directly from the repository
-git clone https://github.com/yourusername/rat.git
-cd rat
-python3 -m venv venv
-source venv/bin/activate
-pip3 install -e .
-
-# Run from anywhere!
-rat
-```
 
 ## 🚀 Versions
 You can also run each script on its own:
@@ -100,7 +92,7 @@ A specialized implementation designed for Claude models that leverages Anthropic
 Run it using:
 ```bash
 uv run rat-claude.py
-
+```
 
 
 ## 🤝 Contributing
