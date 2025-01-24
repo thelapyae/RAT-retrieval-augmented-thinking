@@ -6,7 +6,7 @@ RAT is a powerful tool that improves AI responses by leveraging DeepSeek's reaso
 
 ## 💡 Origin & Ideation
 
-The idea for RAT emerged from an interesting discovery about DeepSeek's API capabilities. By setting the final response token to 1 while retrieving the thinking process, it became possible to separate the reasoning stage from the final response generation. This insight led to the development of a two-stage approach that combines DeepSeek's exceptional reasoning abilities with various response models.
+The idea for RAT emerged from an interesting discovery about DeepSeek-R1 API capabilities. By setting the final response token to 1 while retrieving the thinking process, it became possible to separate the reasoning stage from the final response generation. This insight led to the development of a two-stage approach that combines DeepSeek's exceptional reasoning abilities with various response models.
 
 Link to my original concept in this [Twitter thread](https://x.com/skirano/status/1881922469411643413).
 
@@ -36,6 +36,7 @@ This approach ensures more thoughtful, contextually aware, and reliable response
   ```
 
 ## 🚀 Installation
+Standalone installation
 
 1. Clone the repository:
    ```bash
@@ -43,15 +44,10 @@ This approach ensures more thoughtful, contextually aware, and reliable response
    cd rat
    ```
 
-2. Set up your environment:
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
 
-3. Install as a local package:
+2. Install as a local package:
    ```bash
-   pip3 install -e .
+   pip install -e .
    ```
 
 This will install RAT as a command-line tool, allowing you to run it from anywhere by simply typing `rat`!
@@ -88,6 +84,24 @@ pip3 install -e .
 # Run from anywhere!
 rat
 ```
+
+## 🚀 Versions
+You can also run each script on its own:
+
+### Standard Version (rat.py)
+The default implementation using DeepSeek for reasoning and OpenRouter for responses.
+Run it using:
+```bash
+uv run rat.py
+```
+
+### Claude-Specific Version (rat-claude.py)
+A specialized implementation designed for Claude models that leverages Anthropic's message prefilling capabilities. This version makes Claude believe the reasoning process is its own internal thought process, leading to more coherent and contextually aware responses.
+Run it using:
+```bash
+uv run rat-claude.py
+
+
 
 ## 🤝 Contributing
 
