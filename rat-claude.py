@@ -168,8 +168,8 @@ def main():
     session = PromptSession(style=style)
 
     rprint(Panel.fit(
-        "[bold cyan]AI reasoning chain[/]",
-        title="[bold cyan]Juice 🧃[/]",
+        "[bold cyan]Retrival augmented thinking[/]",
+        title="[bold cyan]RAT 🧠[/]",
         border_style="cyan"
     ))
     rprint("[yellow]Commands:[/]")
