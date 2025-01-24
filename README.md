@@ -116,3 +116,7 @@ GitHub: https://github.com/yourusername/rat
 ```
 ---
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Doriandarko/RAT-retrieval-augmented-thinking&type=Date)](https://star-history.com/#Doriandarko/RAT-retrieval-augmented-thinking&Date)
+
