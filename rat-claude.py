@@ -6,8 +6,6 @@ from rich import print as rprint
 from rich.panel import Panel
 from prompt_toolkit import PromptSession
 from prompt_toolkit.styles import Style
-from rich.syntax import Syntax
-import pyperclip
 import time
 
 # Model Constants
@@ -79,7 +77,7 @@ class ModelChain:
         return reasoning_content
 
     def get_claude_response(self, user_input, reasoning):
-        # Create messages with proper content list format
+        # Create messages with proper format
         user_message = {
             "role": "user",
             "content": [
@@ -105,19 +103,16 @@ class ModelChain:
         rprint(f"[green]{self.get_model_display_name()}[/]", end="")
 
         try:
-            # Create streaming response
             with self.claude_client.messages.stream(
                 model=self.current_model,
                 messages=messages,
                 max_tokens=8000
             ) as stream:
                 full_response = ""
-                # Stream the text response
                 for text in stream.text_stream:
                     print(text, end="", flush=True)
                     full_response += text
 
-            # Update message history with proper format
             self.claude_messages.extend([
                 user_message,
                 {
@@ -126,31 +121,6 @@ class ModelChain:
                 }
             ])
             self.deepseek_messages.append({"role": "assistant", "content": full_response})
-
-            # Handle code blocks
-            if "```" in full_response:
-                code_blocks = full_response.split("```")
-                all_code = []
-
-                for i in range(1, len(code_blocks), 2):
-                    code = code_blocks[i].strip()
-                    if code:
-                        lang = code.split('\n')[0].strip()
-                        code_content = '\n'.join(code.split('\n')[1:]) if lang else code
-                        all_code.append(code_content)
-
-                        syntax = Syntax(code_content, lang or "python", theme="monokai")
-                        rprint(syntax)
-                        rprint(f"\n[bold cyan]Code Block {(i+1)//2}:[/] (Press '{(i+1)//2}' to copy this block, 'a' to copy all blocks)")
-
-                choice = input().lower()
-                if choice == 'a':
-                    combined_code = '\n\n'.join(all_code)
-                    pyperclip.copy(combined_code)
-                    rprint("[green]✓ All code blocks copied to clipboard![/]")
-                elif choice.isdigit() and 1 <= int(choice) <= len(all_code):
-                    pyperclip.copy(all_code[int(choice)-1])
-                    rprint(f"[green]✓ Code block {choice} copied to clipboard![/]")
 
             print("\n")
             return full_response
@@ -176,8 +146,8 @@ def main():
     rprint(" • Type [bold red]'quit'[/] to exit")
     rprint(" • Type [bold magenta]'model <name>'[/] to change the Claude model")
     rprint(" • Type [bold magenta]'reasoning'[/] to toggle reasoning visibility")
-    rprint(" • Press [bold magenta]'key'[/] when prompted to copy code blocks\n")
-
+    rprint(" • Type [bold magenta]'clear'[/] to clear chat history\n")
+    
     while True:
         try:
             user_input = session.prompt("\nYou: ", style=style).strip()
@@ -185,6 +155,12 @@ def main():
             if user_input.lower() == 'quit':
                 print("\nGoodbye! 👋")
                 break
+
+            if user_input.lower() == 'clear':
+                chain.deepseek_messages = []
+                chain.claude_messages = []
+                rprint("\n[magenta]Chat history cleared![/]\n")
+                continue
 
             if user_input.lower().startswith('model '):
                 new_model = user_input[6:].strip()

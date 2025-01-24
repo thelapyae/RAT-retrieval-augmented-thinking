@@ -4,6 +4,12 @@
 
 RAT is a powerful tool that improves AI responses by leveraging DeepSeek's reasoning capabilities to guide other models through a structured thinking process.
 
+## 💡 Origin & Ideation
+
+The idea for RAT emerged from an interesting discovery about DeepSeek's API capabilities. By setting the final response token to 1 while retrieving the thinking process, it became possible to separate the reasoning stage from the final response generation. This insight led to the development of a two-stage approach that combines DeepSeek's exceptional reasoning abilities with various response models.
+
+Link to my original concept in this [Twitter thread](https://x.com/skirano/status/1881922469411643413).
+
 ## How It Works
 
 RAT employs a two-stage approach:
@@ -24,17 +30,17 @@ This approach ensures more thoughtful, contextually aware, and reliable response
 
 • Python 3.11 or higher  
 • A .env file containing:
-  ```
-  DEEPSEEK_API_KEY=<YOUR_DEEPSEEK_API_KEY>
-  OPENROUTER_API_KEY=<YOUR_OPENROUTER_API_KEY>
+  ```plaintext
+  DEEPSEEK_API_KEY=your_deepseek_api_key_here
+  OPENROUTER_API_KEY=your_openrouter_api_key_here
   ```
 
 ## 🚀 Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/juice.git
-   cd juice
+   git clone https://github.com/yourusername/rat.git
+   cd rat
    ```
 
 2. Set up your environment:
@@ -48,19 +54,19 @@ This approach ensures more thoughtful, contextually aware, and reliable response
    pip3 install -e .
    ```
 
-This will install JUICE as a command-line tool, allowing you to run it from anywhere by simply typing `juice`!
+This will install RAT as a command-line tool, allowing you to run it from anywhere by simply typing `rat`!
 
 ## 📖 Usage
 
 1. Ensure your .env file is configured with:
-   ```
-   DEEPSEEK_API_KEY=<YOUR_DEEPSEEK_API_KEY>
-   OPENROUTER_API_KEY=<YOUR_OPENROUTER_API_KEY>
+   ```plaintext
+   DEEPSEEK_API_KEY=your_deepseek_api_key_here
+   OPENROUTER_API_KEY=your_openrouter_api_key_here
    ```
 
-2. Run JUICE from anywhere:
+2. Run RAT from anywhere:
    ```bash
-   juice
+   rat
    ```
 
 3. Available commands:
@@ -73,19 +79,19 @@ This will install JUICE as a command-line tool, allowing you to run it from anyw
 
 ```bash
 # Install directly from the repository
-git clone https://github.com/yourusername/juice.git
-cd juice
+git clone https://github.com/yourusername/rat.git
+cd rat
 python3 -m venv venv
 source venv/bin/activate
 pip3 install -e .
 
 # Run from anywhere!
-juice
+rat
 ```
 
 ## 🤝 Contributing
 
-Interested in improving JUICE?
+Interested in improving RAT?
 
 1. Fork the repository
 2. Create your feature branch
@@ -96,6 +102,11 @@ Interested in improving JUICE?
 
 This project is available under the MIT License. See the [LICENSE](LICENSE) file for details.
 
+If you use this codebase in your projects, please include appropriate credits:
+
+```plaintext
+This project uses RAT (Retrieval Augmented Thinking) by Skirano
+GitHub: https://github.com/yourusername/rat
+```
 ---
 
-Built for developers who value thoughtful AI interactions!

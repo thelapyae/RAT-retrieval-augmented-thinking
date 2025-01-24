@@ -83,7 +83,6 @@ class ModelChain:
         combined_prompt = (
             f"<question>{user_input}</question>\n\n"
             f"<thinking>{reasoning}</thinking>\n\n"
-            # "<developer>Based on your reasoning process, provide your response to the original question:</developer>"
         )
         
         self.openrouter_messages.append({"role": "user", "content": combined_prompt})
@@ -113,37 +112,8 @@ class ModelChain:
             rprint(f"\n[red]Error in streaming response: {str(e)}[/]")
             return "Error occurred while streaming response"
         
-        # Add OpenRouter's response to both models' context
         self.deepseek_messages.append({"role": "assistant", "content": full_response})
         self.openrouter_messages.append({"role": "assistant", "content": full_response})
-        
-        # If the response contains code blocks, format them nicely
-        if "```" in full_response:
-            code_blocks = full_response.split("```")
-            all_code = []
-            
-            for i in range(1, len(code_blocks), 2):  # Process only the code blocks
-                code = code_blocks[i].strip()
-                if code:
-                    lang = code.split('\n')[0].strip()  # Get language if specified
-                    code_content = '\n'.join(code.split('\n')[1:]) if lang else code
-                    all_code.append(code_content)
-                    
-                    # Create syntax highlighted version
-                    syntax = Syntax(code_content, lang or "python", theme="monokai")
-                    
-                    rprint(syntax)
-                    rprint(f"\n[bold cyan]Code Block {(i+1)//2}:[/] (Press '{(i+1)//2}' to copy this block, 'a' to copy all blocks)")
-            
-            # Handle user input for copying
-            choice = input().lower()
-            if choice == 'a':
-                combined_code = '\n\n'.join(all_code)
-                pyperclip.copy(combined_code)
-                rprint("[green]✓ All code blocks copied to clipboard![/]")
-            elif choice.isdigit() and 1 <= int(choice) <= len(all_code):
-                pyperclip.copy(all_code[int(choice)-1])
-                rprint(f"[green]✓ Code block {choice} copied to clipboard![/]")
         
         print("\n")
         return full_response
@@ -166,16 +136,21 @@ def main():
     rprint(" • Type [bold red]'quit'[/] to exit")
     rprint(" • Type [bold magenta]'model <name>'[/] to change the OpenRouter model")
     rprint(" • Type [bold magenta]'reasoning'[/] to toggle reasoning visibility")
-    rprint(" • Press [bold magenta]'key'[/] when prompted to copy code blocks\n")
+    rprint(" • Type [bold magenta]'clear'[/] to clear chat history\n")
     
     while True:
         try:
-            # Replace input() with prompt_toolkit
             user_input = session.prompt("\nYou: ", style=style).strip()
             
             if user_input.lower() == 'quit':
                 print("\nGoodbye! 👋")
                 break
+
+            if user_input.lower() == 'clear':
+                chain.deepseek_messages = []
+                chain.openrouter_messages = []
+                rprint("\n[magenta]Chat history cleared![/]\n")
+                continue
                 
             if user_input.lower().startswith('model '):
                 new_model = user_input[6:].strip()
