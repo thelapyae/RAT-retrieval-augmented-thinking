@@ -21,8 +21,7 @@ This approach ensures more thoughtful, contextually aware, and reliable response
 ## 🎯 Features
 
 - 🤖 **Model Selection**: Flexibility to choose from various OpenRouter models
-- 🧠 **Reasoning Visibility**: Toggle visibility of the AI's thinking process
-- 📝 **Smart Code Handling**: Intelligent detection and syntax highlighting of code blocks
+- 🧠 **Reasoning Visibility**: Toggle visibility of the AI's thinking
 - 🔄 **Context Awareness**: Maintains conversation context for more coherent interactions
 
 ## ⚙️ Requirements
